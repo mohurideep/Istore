@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ISTore.Entity
+namespace IStore.Entity
 {
     public class Product:BaseEntity
     {

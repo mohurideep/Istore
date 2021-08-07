@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IStore.Web", "IStore.Web\IStore.Web.csproj", "{FEDAB489-F9F7-4CC2-BCB3-5B135AA4B31E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IStore.Web", "IStore.Web\IStore.Web.csproj", "{FEDAB489-F9F7-4CC2-BCB3-5B135AA4B31E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISTore.Entity", "ISTore.Entity\ISTore.Entity.csproj", "{6CC17429-7694-485F-9F0A-A4B0F8DC3CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IStore.Entity", "ISTore.Entity\IStore.Entity.csproj", "{6CC17429-7694-485F-9F0A-A4B0F8DC3CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IStore.Database", "IStore.Database\IStore.Database.csproj", "{B34AEA20-0CD2-4D06-8B8D-78F01402FC66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IStore.Database", "IStore.Database\IStore.Database.csproj", "{B34AEA20-0CD2-4D06-8B8D-78F01402FC66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

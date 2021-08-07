@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ISTore.Entity
+namespace IStore.Entity
 {
     public class BaseEntity
     {

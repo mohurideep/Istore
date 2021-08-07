@@ -1,4 +1,4 @@
-﻿using ISTore.Entity;
+﻿using IStore.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -1,0 +1,18 @@
+﻿@model IStore.Entity.Category
+@{
+    ViewData["Title"] = "EditCategory";
+}
+
+<h1>EditCategory</h1>
+
+<form asp-action="UpdateCategory" asp-controller="Category">
+    <div>
+        <label>Name</label>
+        <input type="text" asp-for="Name" />
+        <br />
+        <label>Description</label>
+        <input type="text" asp-for="Description" />
+        <br />
+        <button type="submit">Update</button>
+    </div>
+</form>
