@@ -1,4 +1,5 @@
 using IStore.Database;
+using IStore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,8 +26,9 @@ namespace IStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IStoreContext>(options =>
-            {
+            services.AddScoped<CategoriesService>();
+            services.AddScoped<ProductsService>();
+            services.AddDbContext<IStoreContext>(options =>{
                 options.UseSqlServer(Configuration.GetConnectionString("IStoreConnections"));
             });
             services.AddControllersWithViews();

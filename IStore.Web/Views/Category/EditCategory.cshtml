@@ -7,11 +7,12 @@
 
 <form asp-action="UpdateCategory" asp-controller="Category">
     <div>
+        <input type="hidden" asp-for="ID" />
         <label>Name</label>
-        <input type="text" asp-for="Name" />
+        <input type="text" value="@ViewBag.data.Name" asp-for="Name" />
         <br />
         <label>Description</label>
-        <input type="text" asp-for="Description" />
+        <input type="text" value="@ViewBag.data.Description" asp-for="Description" />
         <br />
         <button type="submit">Update</button>
     </div>

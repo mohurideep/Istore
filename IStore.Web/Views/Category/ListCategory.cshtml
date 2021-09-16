@@ -1,9 +1,9 @@
-﻿@model List<IStore.Entity.Category>
-@{
+﻿@{
     ViewData["Title"] = "ListCategory";
 }
 
 <h1>ListCategory</h1>
+@Html.ActionLink("Add", "Create")
 
 <table class="table">
     <thead>
@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.categories)
         {
             <tr>
                 <td>

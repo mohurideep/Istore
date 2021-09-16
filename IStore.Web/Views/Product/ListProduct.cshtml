@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "ListProduct";
+
+}
+
+
+<script>
+    $("#searchProduct").click(function () {
+        $.ajax({
+            url: '/Product/ListProduct',
+            data: {
+                search: $("#textProduct").val()
+            }
+        })
+            .done(function (response) {
+                $("#productIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+
+        $('#AddProduct').click(function () {
+            $.ajax({
+                url: '/Product/Create',
+            })
+                .done(function (response) {
+                    $("#AddProduct").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                })
+        });
+</script>

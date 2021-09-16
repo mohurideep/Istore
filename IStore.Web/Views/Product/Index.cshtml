@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div>
+    <form>
+        <input type="text" id="textProduct" />
+        <button type="button" id="searchProduct">Search</button>
+        <button type="button" id="AddProduct">Add</button>
+    </form>
+</div>
+
+<div >
+    @{
+        await Html.RenderPartialAsync("ProductTable");
+    }
+</div>
+
+<script>
+    $("#searchProduct").click(function () {
+        var searchData = $("#textProduct").val();
+                $.ajax({
+                    url: '/Product/ListProduct',
+                    data: {
+                        search: searchData
+                    }
+                })
+                .done(function (response) {
+                    $("#productIndex").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                })
+        });
+</script>

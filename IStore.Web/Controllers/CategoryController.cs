@@ -1,56 +1,48 @@
-﻿using IStore.Database;
-using IStore.Entity;
-using IStore.Service;
+﻿using IStore.Entity;
+using IStore.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IStore.Web.Controllers
 {
     public class CategoryController : Controller
     {
 
-        private IStoreContext _storeContext;
-        public CategoryController(IStoreContext storeContext)
+        private readonly CategoriesService _categoryService;
+        public CategoryController(CategoriesService categoryService)
         {
-            _storeContext = storeContext;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index() 
         {
-            var categories = _storeContext.Categories.ToList();
-            return View("ListCategory", categories);
+            ViewBag.categories = _categoryService.GetCategory();
+            return View("ListCategory");
         }
         public IActionResult Create() { return View("CreateCategory"); }
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
-            _storeContext.Categories.Add(category);
-            _storeContext.SaveChanges();
+            _categoryService.SaveCategory(category);
             return RedirectToAction("Index");
         }
 
         public IActionResult EditCategory(int id)
         {
-            var data = _storeContext.Categories.Find(id);
-            
-            return View("EditCategory", data);
+            ViewBag.data = _categoryService.FindCategory(id);
+            return View("EditCategory", ViewBag.data);
         }
 
+        [HttpPost]
         public IActionResult UpdateCategory(Category category)
         {
-            _storeContext.Categories.Update(category);
-            _storeContext.SaveChanges();
+            _categoryService.UpdateCategory(category);
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteCategory(int id)
         {
-            var data = _storeContext.Categories.Find(id);
-            _storeContext.Categories.Remove(data);
-            _storeContext.SaveChanges();
+            _categoryService.DeleteCategory(id);
             return RedirectToAction("Index");
         }
     }

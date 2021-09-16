@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IStore.Database\IStore.Database.csproj" />
+    <ProjectReference Include="..\IStore.Services\IStore.Services.csproj" />
   </ItemGroup>
 
 </Project>
