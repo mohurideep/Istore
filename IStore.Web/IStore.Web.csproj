@@ -20,4 +20,8 @@
     <ProjectReference Include="..\IStore.Services\IStore.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\about\" />
+  </ItemGroup>
+
 </Project>
