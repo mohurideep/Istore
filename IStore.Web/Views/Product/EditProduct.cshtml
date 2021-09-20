@@ -1,0 +1,36 @@
+﻿
+
+<h1>Edit Products</h1>
+<form id="EditProductForm">
+    <div>
+        <label>Name</label>
+        <input type="text" name="Name" value="@ViewBag.data.Name" />
+        <br />
+        <label>Description</label>
+        <input type="text" name="Description" value="@ViewBag.data.Description" />
+        <br />
+        <label>Price</label>
+        <input type="text" name="Price" value="@ViewBag.data.Price"/>
+        <br />
+        <button type="button" id="UpdateProductBtn">Update</button>
+    </div>
+</form>
+
+<script>
+
+    $("#UpdateProductBtn").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Product/UpdateProduct',
+            data: $("#EditProductForm").serialize()
+        })
+            .done(function (response) {
+                $("#EditProductForm").html("");
+                $("#productIndex").html(response);
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+</script>

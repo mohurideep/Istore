@@ -36,7 +36,6 @@ namespace IStore.Web.Controllers
                 data = data.Where(x =>x.Name!=null && x.Name.ToLower().Contains(search)).ToList();
                 ViewBag.ProductsList = data;
             }
-            //ViewData["ListProduct"] = data;
             return PartialView("ProductTable");
         }
         public IActionResult Create()
@@ -48,6 +47,26 @@ namespace IStore.Web.Controllers
         {
             _productsService.SaveProduct(product);
             return RedirectToAction("ProductTable");
+        }
+        
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            ViewBag.data = _productsService.FindProduct(id);
+            return PartialView(ViewBag.data);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProduct(Product product)
+        {
+            _productsService.UpdateProduct(product);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteProduct(int id)
+        {
+            _productsService.DeleteProduct(id);
+            return RedirectToAction("Index");
         }
     }
 }

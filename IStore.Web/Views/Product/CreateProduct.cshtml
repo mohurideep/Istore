@@ -1,20 +1,39 @@
-﻿@model IStore.Entity.Product
+﻿
 @{
-    ViewData["Title"] = "Create Product";
+    ViewData["Title"] = "CreateProduct";
 }
 
 <h1>Create Products</h1>
-<form asp-action="CreateProduct" asp-controller="Product">
+<form id="CreateProductForm">
     <div>
         <label>Name</label>
-        <input type="text" asp-for="Name" />
+        <input type="text" name="Name" />
         <br />
         <label>Description</label>
-        <input type="text" asp-for="Description" />
+        <input type="text" name="Description" />
         <br />
         <label>Price</label>
-        <input type="text" asp-for="Price" />
+        <input type="text" name="Price" />
         <br />
-        <button type="submit">Submit</button>
+        <button type="button" id="AddProductBtn">Submit</button>
     </div>
 </form>
+
+<script>
+
+    $("#AddProductBtn").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Product/CreateProduct',
+            data: $("#CreateProductForm").serialize()
+        })
+            .done(function (response) {
+                $("#CreateProductIndex").html("");
+                $("#productIndex").html(response);
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+</script>

@@ -12,27 +12,39 @@
         <button type="button" id="AddProduct">Add</button>
     </form>
 </div>
-
-<div >
+<div id="CreateProductIndex">
+    @{
+        await Html.RenderPartialAsync("CreateProduct");
+    }
+</div>
+<div id="productIndex">
     @{
         await Html.RenderPartialAsync("ProductTable");
     }
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#CreateProductIndex").hide();
+    });
     $("#searchProduct").click(function () {
         var searchData = $("#textProduct").val();
-                $.ajax({
-                    url: '/Product/ListProduct',
-                    data: {
-                        search: searchData
-                    }
-                })
-                .done(function (response) {
-                    $("#productIndex").html(response);
-                })
-                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Fail");
-                })
-        });
+        $.ajax({
+            url: '/Product/ListProduct',
+            data: {
+                search: searchData
+            }
+        })
+            .done(function (response) {
+                $("#productIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+    $("#AddProduct").click(function () {
+
+        $("#CreateProductIndex").show();
+    });
+
 </script>

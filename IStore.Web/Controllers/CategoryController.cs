@@ -26,7 +26,7 @@ namespace IStore.Web.Controllers
             _categoryService.SaveCategory(category);
             return RedirectToAction("Index");
         }
-
+        [HttpGet]
         public IActionResult EditCategory(int id)
         {
             ViewBag.data = _categoryService.FindCategory(id);
@@ -39,11 +39,11 @@ namespace IStore.Web.Controllers
             _categoryService.UpdateCategory(category);
             return RedirectToAction("Index");
         }
-
         public IActionResult DeleteCategory(int id)
         {
             _categoryService.DeleteCategory(id);
             return RedirectToAction("Index");
         }
+        
     }
 }

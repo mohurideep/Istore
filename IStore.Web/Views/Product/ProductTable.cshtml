@@ -3,7 +3,7 @@
     ViewData["Title"] = "ProductTable";
 }
 
-<div id="productIndex">
+<div >
     <h1>ProductTable</h1>
     <br />
     <table class="table">
@@ -41,7 +41,7 @@
                         @item.Price
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "EditProduct", new { id = item.ID }) |
+                        <button type="button" class="Editbtn" data-id="@item.ID">Edit</button>
                         @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID })
                     </td>
                 </tr>
@@ -51,3 +51,20 @@
 
 </div>
 
+<script>
+
+    $(".Editbtn").click(function () {
+        $.ajax({
+            url: '/Product/EditProduct',
+            data:
+            {
+                id: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+</script>
