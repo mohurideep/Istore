@@ -17,27 +17,33 @@
             <th>
                 Description
             </th>
+            <th>
+                Image
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in ViewBag.categories)
         {
-            <tr>
-                <td>
-                    @item.ID
-                </td>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.Description
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditCategory", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "DeleteCategory", new { id = item.ID })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <img src="@item.ImageURL" alt="Image" height="100" width="100">
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditCategory", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id = item.ID })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

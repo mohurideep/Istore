@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Category>
+
 @{
     ViewData["Title"] = "CreateProduct";
 }
@@ -6,6 +7,14 @@
 <h1>Create Products</h1>
 <form id="CreateProductForm">
     <div>
+        <label>Categry</label>
+        <select name="CategoryID">
+            @foreach (var category in Model)
+            {
+                <option value="@category.ID">@category.Name</option>
+            }
+        </select>
+        <br />
         <label>Name</label>
         <input type="text" name="Name" />
         <br />
@@ -15,6 +24,11 @@
         <label>Price</label>
         <input type="text" name="Price" />
         <br />
+        @*<label>Image</label>
+        <input id="imageURL" name="imageURL" type="hidden" />
+        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg" />
+        <img id="ContentImage" alt="Image" height="100" width="100" />
+        <br />*@
         <button type="button" id="AddProductBtn">Submit</button>
     </div>
 </form>
@@ -28,8 +42,8 @@
             data: $("#CreateProductForm").serialize()
         })
             .done(function (response) {
-                $("#CreateProductIndex").html("");
-                $("#productIndex").html(response);
+                $("#ProductIndex").html("");
+                $("#productTableIndex").html(response);
 
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {

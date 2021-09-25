@@ -2,16 +2,48 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <h1>Create Categories</h1>
 <form asp-action="CreateCategory" asp-controller="Category">
     <div>
         <label>Name</label>
-        <input type="text"  asp-for="Name"/>
+        <input type="text" asp-for="Name" />
         <br />
         <label>Description</label>
-        <input type="text" asp-for="Description"/>
+        <input type="text" asp-for="Description" />
+        <br />
+        <label>Image</label>
+        <input id="imageURL" name="imageURL" type="hidden" />
+        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg"  />
+        <img id="ContentImage" alt="Image" height="100" width="100"/>
         <br />
         <button type="submit">Submit</button>
     </div>
 </form>
+<script>
+    $("#ImageUpload").change(function () {
+        var element = this;
+        var formdata = new FormData();
+        var Files = element.files;
+
+        for (var i = 0; i != Files.length; i++) {
+
+            formdata.append("Files", Files[i]);
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            data: formdata,
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+                if (response.status == "success") {
+                    $("#ContentImage").attr("src", response.imageURL);
+                    $("#imageURL").val(response.imageURL);
+                }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+    });
+</script>

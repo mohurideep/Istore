@@ -1,4 +1,6 @@
-﻿using IStore.Web.Models;
+﻿using IStore.Services;
+using IStore.Web.Models;
+using IStore.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +14,18 @@ namespace IStore.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly CategoriesService _categoryService;
+        public HomeController(ILogger<HomeController> logger, CategoriesService categoryService)
         {
             _logger = logger;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeViewModel homeViewModel = new HomeViewModel();
+            homeViewModel.Categories = _categoryService.GetCategory();
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()

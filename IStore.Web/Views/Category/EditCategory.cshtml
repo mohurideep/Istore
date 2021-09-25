@@ -7,13 +7,48 @@
 
 <form asp-action="UpdateCategory" asp-controller="Category">
     <div>
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="@Model.ID" />
         <label>Name</label>
-        <input type="text" value="@ViewBag.data.Name" asp-for="Name" />
+        <input type="text" value="@ViewBag.data.Name" asp-for="@Model.Name" />
         <br />
         <label>Description</label>
-        <input type="text" value="@ViewBag.data.Description" asp-for="Description" />
+        <input type="text" value="@ViewBag.data.Description" asp-for="@Model.Description" />
+        <br />
+        <label>Image</label>
+        <br />
+        <img id="ContentImage" src="@ViewBag.data.ImageURL" asp-for="@Model.ImageURL" alt="Image" height="100" width="100" />
+        <input id="imageURL" name="imageURL" type="hidden" />
+        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg" />
         <br />
         <button type="submit">Update</button>
     </div>
 </form>
+
+<script>
+    $("#ImageUpload").change(function () {
+        var element = this;
+        var formdata = new FormData();
+        var Files = element.files;
+
+        for (var i = 0; i != Files.length; i++) {
+
+            formdata.append("Files", Files[i]);
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            data: formdata,
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+                if (response.status == "success") {
+                    $("#ContentImage").attr("src", response.imageURL);
+                    $("#imageURL").val(response.imageURL);
+                }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+    });
+</script>

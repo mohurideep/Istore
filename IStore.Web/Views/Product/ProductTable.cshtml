@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Product>
 @{
     ViewData["Title"] = "ProductTable";
 }
@@ -9,6 +9,9 @@
     <table class="table">
         <thead>
             <tr>
+                <th>
+                    Category
+                </th>
                 <th>
                     Id
                 </th>
@@ -25,9 +28,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.ProductsList)
+            @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @item.Category.Name
+                    </td>
                     <td>
                         @item.ID
                     </td>
@@ -42,7 +48,8 @@
                     </td>
                     <td>
                         <button type="button" class="Editbtn" data-id="@item.ID">Edit</button>
-                        @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID })
+                        
+                        <button type="button" class="Deletebtn" data-id="@item.ID">Delete</button>
                     </td>
                 </tr>
             }
@@ -62,6 +69,22 @@
             }
         })
             .done(function (response) {
+                $("#ProductIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+    $(".Deletebtn").click(function () {
+        $.ajax({
+            url: '/Product/DeleteProduct',
+            data:
+            {
+                id: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#productTableIndex").html(response);
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");

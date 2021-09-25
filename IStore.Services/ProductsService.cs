@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IStore.Services
 {
@@ -18,7 +20,7 @@ namespace IStore.Services
 
         public List<Product> GetProduct()
         {
-            return _storeContext.Products.ToList();
+            return _storeContext.Products.Include(x => x.Category).ToList();
         }
         public void SaveProduct(Product product)
         {

@@ -1,16 +1,18 @@
-﻿
+﻿@model Product
 
 <h1>Edit Products</h1>
 <form id="EditProductForm">
     <div>
+
+        <input type="hidden" name="ID" value="@Model.ID" />
         <label>Name</label>
-        <input type="text" name="Name" value="@ViewBag.data.Name" />
+        <input type="text" name="Name" value="@Model.Name" />
         <br />
         <label>Description</label>
-        <input type="text" name="Description" value="@ViewBag.data.Description" />
+        <input type="text" name="Description" value="@Model.Description" />
         <br />
         <label>Price</label>
-        <input type="text" name="Price" value="@ViewBag.data.Price"/>
+        <input type="text" name="Price" value="@Model.Price" />
         <br />
         <button type="button" id="UpdateProductBtn">Update</button>
     </div>

@@ -30,6 +30,7 @@ namespace IStore.Services
             var CategoryById = _storeContext.Categories.FirstOrDefault(x => x.ID == category.ID);
             CategoryById.Name = category.Name;
             CategoryById.Description = category.Description;
+            CategoryById.ImageURL = category.ImageURL;
             _storeContext.SaveChanges();
         }
         public Category FindCategory(int ID)

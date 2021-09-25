@@ -12,21 +12,16 @@
         <button type="button" id="AddProduct">Add</button>
     </form>
 </div>
-<div id="CreateProductIndex">
-    @{
-        await Html.RenderPartialAsync("CreateProduct");
-    }
+<div id="ProductIndex">
+
 </div>
-<div id="productIndex">
+<div id="productTableIndex">
     @{
         await Html.RenderPartialAsync("ProductTable");
     }
 </div>
 
 <script>
-    $(document).ready(function () {
-        $("#CreateProductIndex").hide();
-    });
     $("#searchProduct").click(function () {
         var searchData = $("#textProduct").val();
         $.ajax({
@@ -36,15 +31,22 @@
             }
         })
             .done(function (response) {
-                $("#productIndex").html(response);
+                $("#productTableIndex").html(response);
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             })
     });
     $("#AddProduct").click(function () {
-
-        $("#CreateProductIndex").show();
+        $.ajax({
+            url: '/Product/CreateProduct'
+        })
+            .done(function (response) {
+                $("#ProductIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
     });
 
 </script>
