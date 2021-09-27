@@ -5,22 +5,44 @@
 
 <h1>Index</h1>
 
-<div>
-    <form>
-        <input type="text" id="textProduct" />
-        <button type="button" id="searchProduct">Search</button>
-        <button type="button" id="AddProduct">Add</button>
-    </form>
-</div>
-<div id="ProductIndex">
+<div class="container">
+    <div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Search</label>
+                        <input class="form-control" id="textProduct" name="Search" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Action</label>
+                        <div class="row">
+                            <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="searchProduct">Search</button>
+                            </div>
+                            <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="AddProduct">New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <div id="ProductIndex">
+
+    </div>
+    <hr />
+    <div id="productTableIndex">
+        @{
+            await Html.RenderPartialAsync("ProductTable");
+        }
+    </div>
 
 </div>
-<div id="productTableIndex">
-    @{
-        await Html.RenderPartialAsync("ProductTable");
-    }
-</div>
-
 <script>
     $("#searchProduct").click(function () {
         var searchData = $("#textProduct").val();

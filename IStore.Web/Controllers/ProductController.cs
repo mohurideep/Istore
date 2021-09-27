@@ -74,8 +74,6 @@ namespace IStore.Web.Controllers
         public IActionResult DeleteProduct(int id)
         {
             _productsService.DeleteProduct(id);
-            //var productList = _productsService.GetProduct();
-            //return PartialView("ProductTable", productList);
             return RedirectToAction("ProductTable");
         }
     }
