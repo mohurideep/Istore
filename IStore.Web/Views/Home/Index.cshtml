@@ -6,6 +6,11 @@
     var SecondFeaturedCategory = Model.FeaturedCategories[1];
     var ThirdFeaturedCategory = Model.FeaturedCategories[2];
     var FourthFeaturedCategory = Model.FeaturedCategories[3];
+
+    var FirstProduct = Model.NewProducts[0];
+    var SecondProduct = Model.NewProducts[1];
+    var ThirdProduct = Model.NewProducts[2];
+    var FourthProduct = Model.NewProducts[3];
 }
 
 <!-- SLIDER -->
@@ -282,15 +287,15 @@
                         <li class="product-item">
                             <div class="product-thumb clearfix">
                                 <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/13.jpg" alt="image">
+                                    <img src="@FirstProduct.ImageURL" alt="image">
                                 </a>
                                 <span class="new">New</span>
                             </div>
                             <div class="product-info text-center clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
+                                <span class="product-title">@FirstProduct.Description</span>
                                 <div class="price">
                                     <ins>
-                                        <span class="amount">$100.00</span>
+                                        <span class="amount">@FirstProduct.Price</span>
                                     </ins>
                                 </div>
                                 <ul class="flat-color-list width-14">
@@ -314,15 +319,15 @@
                         <li class="product-item">
                             <div class="product-thumb clearfix">
                                 <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/14.jpg" alt="image">
+                                    <img src="@SecondProduct.ImageURL" alt="image">
                                 </a>
                                 <span class="new">New</span>
                             </div>
                             <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
+                                <span class="product-title">@SecondProduct.Description</span>
                                 <div class="price">
                                     <ins>
-                                        <span class="amount">$100.00</span>
+                                        <span class="amount">@SecondProduct.Price</span>
                                     </ins>
                                 </div>
                                 <ul class="flat-color-list width-14">
@@ -345,18 +350,18 @@
                         <li class="product-item">
                             <div class="product-thumb clearfix">
                                 <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/15.jpg" alt="image">
+                                    <img src="@ThirdProduct.ImageURL" alt="image">
                                 </a>
                                 <span class="new sale">Sale</span>
                             </div>
                             <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
+                                <span class="product-title">@ThirdProduct.Description</span>
                                 <div class="price">
                                     <del>
                                         <span class="regular">$150.00</span>
                                     </del>
                                     <ins>
-                                        <span class="amount">$100.00</span>
+                                        <span class="amount">@ThirdProduct.Price</span>
                                     </ins>
                                 </div>
                             </div>
@@ -368,14 +373,14 @@
                         <li class="product-item">
                             <div class="product-thumb clearfix">
                                 <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/16.jpg" alt="image">
+                                    <img src="@FourthProduct.ImageURL" alt="image">
                                 </a>
                             </div>
                             <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
+                                <span class="product-title">@FourthProduct.Description</span>
                                 <div class="price">
                                     <ins>
-                                        <span class="amount">$100.00</span>
+                                        <span class="amount">@FourthProduct.Price</span>
                                     </ins>
                                 </div>
                                 <ul class="flat-color-list width-14">

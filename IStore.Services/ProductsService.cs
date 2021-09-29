@@ -46,5 +46,10 @@ namespace IStore.Services
             _storeContext.Products.Remove(data);
             _storeContext.SaveChanges();
         }
+
+        public List<Product> GetNewProducts()
+        {
+            return _storeContext.Products.OrderByDescending(x => x.EntryDate).ToList();
+        }
     }
 }

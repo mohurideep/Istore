@@ -15,16 +15,20 @@ namespace IStore.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CategoriesService _categoryService;
-        public HomeController(ILogger<HomeController> logger, CategoriesService categoryService)
+        private readonly ProductsService _productService;
+
+        public HomeController(ILogger<HomeController> logger, CategoriesService categoryService , ProductsService productsService)
         {
             _logger = logger;
             _categoryService = categoryService;
+            _productService = productsService;
         }
 
         public IActionResult Index()
         {
             HomeViewModel homeViewModel = new HomeViewModel();
             homeViewModel.FeaturedCategories = _categoryService.GetFeaturedCategory();
+            homeViewModel.NewProducts = _productService.GetNewProducts();
             return View(homeViewModel);
         }
 

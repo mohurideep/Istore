@@ -9,5 +9,7 @@ namespace IStore.Web.Models.ViewModel
     public class HomeViewModel
     {
         public List<Category> FeaturedCategories { get; set; }
+
+        public List<Product> NewProducts { get; set; }
     }
 }
