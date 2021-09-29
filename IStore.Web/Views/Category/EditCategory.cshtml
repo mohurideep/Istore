@@ -1,4 +1,4 @@
-﻿@model IStore.Entity.Category
+﻿@model Category
 @{
     ViewData["Title"] = "EditCategory";
 }
@@ -9,16 +9,21 @@
     <div>
         <input type="hidden" asp-for="@Model.ID" />
         <label>Name</label>
-        <input type="text" value="@ViewBag.data.Name" asp-for="@Model.Name" />
+        <input type="text" asp-for="@Model.Name" />
         <br />
         <label>Description</label>
-        <input type="text" value="@ViewBag.data.Description" asp-for="@Model.Description" />
+        <input type="text" asp-for="@Model.Description" />
         <br />
         <label>Image</label>
         <br />
-        <img id="ContentImage" src="@ViewBag.data.ImageURL" asp-for="@Model.ImageURL" alt="Image" height="100" width="100" />
+        <img id="ContentImage" src="@Model.ImageURL" asp-for="@Model.ImageURL" alt="Image" height="100" width="100" />
         <input id="imageURL" name="imageURL" type="hidden" />
         <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg" />
+        <br />
+        <label>Is Featured</label>
+        <input type="radio" asp-for="@Model.isFeatured" value="true" /> True
+
+        <input type="radio" asp-for="@Model.isFeatured" value="false"/> False
         <br />
         <button type="submit">Update</button>
     </div>

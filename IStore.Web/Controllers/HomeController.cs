@@ -24,7 +24,7 @@ namespace IStore.Web.Controllers
         public IActionResult Index()
         {
             HomeViewModel homeViewModel = new HomeViewModel();
-            homeViewModel.Categories = _categoryService.GetCategory();
+            homeViewModel.FeaturedCategories = _categoryService.GetFeaturedCategory();
             return View(homeViewModel);
         }
 

@@ -22,7 +22,6 @@ namespace IStore.Web.Controllers
         }
         public IActionResult Index()
         {
-            ProductTable();
             return View();
         }
         [HttpGet]
@@ -40,11 +39,13 @@ namespace IStore.Web.Controllers
             }
             return PartialView("ProductTable",data);
         }
+
         public IActionResult CreateProduct()
         {
             var Categories = _categoriesService.GetCategory();
-            return PartialView("CreateProduct",Categories);
+            return PartialView("CreateProduct", Categories);
         }
+
         [HttpPost]
         public IActionResult CreateProduct(CategoryViewModel model)
         {
@@ -52,7 +53,9 @@ namespace IStore.Web.Controllers
             newProduct.Name = model.Name;
             newProduct.Description = model.Description;
             newProduct.Price = model.Price;
+            newProduct.ImageURL = model.imageURL;
             newProduct.Category = _categoriesService.FindCategory(model.CategoryID);
+            newProduct.EntryDate = DateTime.Now;
             _productsService.SaveProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
@@ -68,7 +71,7 @@ namespace IStore.Web.Controllers
         public IActionResult UpdateProduct(Product product)
         {
             _productsService.UpdateProduct(product);
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductTable");
         }
 
         public IActionResult DeleteProduct(int id)

@@ -13,8 +13,13 @@
         <br />
         <label>Image</label>
         <input id="imageURL" name="imageURL" type="hidden" />
-        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg"  />
-        <img id="ContentImage" alt="Image" height="100" width="100"/>
+        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg" />
+        <img id="ContentImage" alt="Image" height="100" width="100" />
+        <br />
+        <label>Is Featured</label>
+        <input type="radio" asp-for="isFeatured" value="true" /> True
+
+        <input type="radio" asp-for="isFeatured" value="false" /> False
         <br />
         <button type="submit">Submit</button>
     </div>

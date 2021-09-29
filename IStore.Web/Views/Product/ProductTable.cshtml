@@ -24,6 +24,9 @@
                 <th>
                     Price
                 </th>
+                <th>
+                    Image
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -45,6 +48,9 @@
                     </td>
                     <td>
                         @item.Price
+                    </td>
+                    <td>
+                        <img src="@item.ImageURL" alt="Image" height="100" width="100">
                     </td>
                     <td>
                         <button type="button" class="Editbtn" data-id="@item.ID">Edit</button>

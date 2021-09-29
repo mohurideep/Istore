@@ -29,8 +29,8 @@ namespace IStore.Web.Controllers
         [HttpGet]
         public IActionResult EditCategory(int id)
         {
-            ViewBag.data = _categoryService.FindCategory(id);
-            return View("EditCategory", ViewBag.data);
+            var data = _categoryService.FindCategory(id);
+            return View("EditCategory", data);
         }
 
         [HttpPost]

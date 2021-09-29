@@ -1,25 +1,63 @@
 ﻿@model Product
 
-<h1>Edit Products</h1>
-<form id="EditProductForm">
-        <input type="hidden" name="ID" value="@Model.ID" />
 
-        <div class="form-group">
-            <label>Name</label>
-            <input class="form-control" type="text" name="Name" value="@Model.Name" />
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input class="form-control" type="text" name="Description" value="@Model.Description" />
-        </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input class="form-control" type="text" name="Price" value="@Model.Price" />
-        </div>
-            <button class="btn" type="button" id="UpdateProductBtn">Update</button>
+<form id="EditProductForm">
+    <h1>Edit Products</h1>
+    <input type="hidden" name="ID" value="@Model.ID" />
+    @*<div class="form-group">
+            <label>Categry</label>
+            <select class="form-control" name="CategoryID">
+                <option value="@Model.Category.ID">@Model.Category.Name</option>
+            </select>
+        </div>*@
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" type="text" name="Name" value="@Model.Name" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" type="text" name="Description" value="@Model.Description" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <input class="form-control" type="text" name="Price" value="@Model.Price" />
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <img id="ContentImage" src="@Model.ImageURL" asp-for="@Model.ImageURL" alt="Image" height="100" width="100" />
+        <input id="imageURL" name="imageURL" type="hidden" />
+        <input id="ImageUpload" name="Image" type="file" accept=".png, .jpg , .jpeg" />
+    </div>
+    <button class="btn" type="button" id="UpdateProductBtn">Update</button>
 </form>
 
 <script>
+    $("#ImageUpload").change(function () {
+        var element = this;
+        var formdata = new FormData();
+        var Files = element.files;
+
+        for (var i = 0; i != Files.length; i++) {
+
+            formdata.append("Files", Files[i]);
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            data: formdata,
+            contentType: false,
+            processData: false
+        })
+            .done(function (response) {
+                if (response.status == "success") {
+                    $("#ContentImage").attr("src", response.imageURL);
+                    $("#imageURL").val(response.imageURL);
+                }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+    });
 
     $("#UpdateProductBtn").click(function () {
         $.ajax({
@@ -29,7 +67,7 @@
         })
             .done(function (response) {
                 $("#EditProductForm").html("");
-                $("#productIndex").html(response);
+                $("#productTableIndex").html(response);
 
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {

@@ -3,9 +3,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-section">
+                <h2 class="title">
+                    Products
+                </h2>
+            </div><!-- /.title-section -->
+        </div><!-- /.col-md-12 -->
+    </div>
     <div>
         <form method="post">
             <div class="row">
@@ -37,9 +44,8 @@
     </div>
     <hr />
     <div id="productTableIndex">
-        @{
-            await Html.RenderPartialAsync("ProductTable");
-        }
+        
+
     </div>
 
 </div>
@@ -59,6 +65,19 @@
                 alert("Fail");
             })
     });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Product/ProductTable'
+        })
+            .done(function (response) {
+                $("#productTableIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
+
     $("#AddProduct").click(function () {
         $.ajax({
             url: '/Product/CreateProduct'

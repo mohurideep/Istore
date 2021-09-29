@@ -20,6 +20,10 @@ namespace IStore.Services
         {
             return _storeContext.Categories.ToList();
         }
+        public List<Category> GetFeaturedCategory()
+        {
+            return _storeContext.Categories.Where(x=>x.isFeatured && x.ImageURL!=null).ToList();
+        }
         public void SaveCategory(Category category)
         {
             _storeContext.Categories.Add(category);

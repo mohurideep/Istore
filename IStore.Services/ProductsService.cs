@@ -32,6 +32,8 @@ namespace IStore.Services
             var ProductById = _storeContext.Products.FirstOrDefault(x => x.ID == product.ID);
             ProductById.Name = product.Name;
             ProductById.Description = product.Description;
+            ProductById.Price = product.Price;
+            ProductById.ImageURL = product.ImageURL;
             _storeContext.SaveChanges();
         }
         public Product FindProduct(int ID)

@@ -9,6 +9,11 @@ namespace IStore.Entity
     {
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+
+        public string ImageURL { get; set; }
+
+        public DateTime EntryDate { get; set; }
+
         public virtual Category Category { get; set; }
     }
 }
