@@ -39,12 +39,12 @@
         </form>
     </div>
     <hr />
-    <div id="ProductIndex">
+    <div id="productTableIndex">
+
 
     </div>
     <hr />
-    <div id="productTableIndex">
-        
+    <div id="ProductIndex">
 
     </div>
 
@@ -83,11 +83,18 @@
             url: '/Product/CreateProduct'
         })
             .done(function (response) {
+                focusAction();
                 $("#ProductIndex").html(response);
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             })
     });
+
+    function focusAction() {
+        $("html,body").animate({
+            scrollTop: $("#ProductIndex").offset().top - 100
+        }, 1000);
+    }
 
 </script>
