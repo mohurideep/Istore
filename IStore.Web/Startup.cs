@@ -28,6 +28,7 @@ namespace IStore.Web
         {
             services.AddScoped<CategoriesService>();
             services.AddScoped<ProductsService>();
+            services.AddScoped<CategoriesService>();
             services.AddDbContext<IStoreContext>(options =>{
                 options.UseSqlServer(Configuration.GetConnectionString("IStoreConnections"));
             });

@@ -1,5 +1,6 @@
 ﻿using IStore.Entity;
 using IStore.Services;
+using IStore.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -16,8 +17,9 @@ namespace IStore.Web.Controllers
 
         public IActionResult Index() 
         {
-            ViewBag.categories = _categoryService.GetCategory();
-            return View("ListCategory");
+            CategorySearchViewModel model = new CategorySearchViewModel();
+            model.Categories = _categoryService.GetCategory();
+            return View("ListCategory",model);
         }
         public IActionResult Create() { return View("CreateCategory"); }
         [HttpPost]

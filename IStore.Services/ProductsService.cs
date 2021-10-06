@@ -22,6 +22,10 @@ namespace IStore.Services
         {
             return _storeContext.Products.Include(x => x.Category).ToList();
         }
+        public List<Product> GetProduct(List<int> productId)
+        {
+            return _storeContext.Products.Where(x => productId.Contains(x.ID)).ToList();
+        }
         public void SaveProduct(Product product)
         {
             _storeContext.Products.Add(product);

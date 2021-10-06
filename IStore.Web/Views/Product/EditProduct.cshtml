@@ -36,6 +36,7 @@
             </div>
 
             <button class="btn" type="button" id="UpdateProductBtn">Update</button>
+            <button class="btn" type="button" id="CancelProductBtn">Cancel</button>
         </div>
         <div class="col-md-4">
             <div class="thumb">
@@ -57,7 +58,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/Shared/UploadImage',
+            url:'@Url.Action("UploadImage", "Shared")',
             data: formdata,
             contentType: false,
             processData: false
@@ -76,7 +77,7 @@
     $("#UpdateProductBtn").click(function () {
         $.ajax({
             type: 'POST',
-            url: '/Product/UpdateProduct',
+            url:'@Url.Action("UpdateProduct", "Product")',
             data: $("#EditProductForm").serialize()
         })
             .done(function (response) {
@@ -87,5 +88,10 @@
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             })
+    });
+
+    $("#CancelProductBtn").click(function () {
+        $("#ProductIndex").html("");
+        focusAction("productTableIndex");
     });
 </script>

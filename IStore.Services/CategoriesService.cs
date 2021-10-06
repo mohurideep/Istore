@@ -1,5 +1,6 @@
 ﻿using IStore.Database;
 using IStore.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace IStore.Services
 
         public List<Category> GetCategory()
         {
-            return _storeContext.Categories.ToList();
+            return _storeContext.Categories.Include(x => x.Products).ToList();
         }
         public List<Category> GetFeaturedCategory()
         {

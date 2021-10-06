@@ -38,6 +38,7 @@
             </div>
 
             <button class="btn" type="button" id="AddProductBtn">Submit</button>
+            <button class="btn" type="button" id="CancelProductBtn">Cancel</button>
         </div>
         <div class="col-md-4">
             <div class="thumb">
@@ -47,12 +48,12 @@
     </div>
 </form>
 
-    <script>
+<script>
 
         $("#AddProductBtn").click(function () {
             $.ajax({
                 type: 'POST',
-                url: '/Product/CreateProduct',
+                url:'@Url.Action("CreateProduct", "Product")',
                 data: $("#CreateProductForm").serialize()
             })
                 .done(function (response) {
@@ -64,6 +65,12 @@
                     alert("Fail");
                 })
         });
+
+        $("#CancelProductBtn").click(function () {
+            $("#ProductIndex").html("");
+            focusAction("productTableIndex");
+        });
+
         $("#ImageUpload").change(function () {
             var element = this;
             var formdata = new FormData();
@@ -75,7 +82,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: '/Shared/UploadImage',
+                url:'@Url.Action("UploadImage", "Shared")',
                 data: formdata,
                 contentType: false,
                 processData: false
@@ -90,4 +97,4 @@
                     alert("Fail");
                 });
         });
-    </script>
+</script>

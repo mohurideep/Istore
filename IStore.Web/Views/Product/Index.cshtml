@@ -30,6 +30,9 @@
                                 <button class="btn btn-primary form-control" type="button" id="searchProduct">Search</button>
                             </div>
                             <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="resetSearch">Reset</button>
+                            </div>
+                            <div class="col-md-4 pr-0">
                                 <button class="btn btn-primary form-control" type="button" id="AddProduct">New</button>
                             </div>
                         </div>
@@ -41,7 +44,6 @@
     <hr />
     <div id="productTableIndex">
 
-
     </div>
     <hr />
     <div id="ProductIndex">
@@ -50,10 +52,23 @@
 
 </div>
 <script>
+
+    $(document).ready(function () {
+        $.ajax({
+            url:'@Url.Action("ProductTable", "Product")'
+        })
+        .done(function (response) {
+            $("#productTableIndex").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Fail");
+        })
+    });
+
     $("#searchProduct").click(function () {
         var searchData = $("#textProduct").val();
         $.ajax({
-            url: '/Product/ListProduct',
+            url:'@Url.Action("ListProduct", "Product")',
             data: {
                 search: searchData
             }
@@ -66,9 +81,14 @@
             })
     });
 
-    $(document).ready(function () {
+    $("#resetSearch").click(function () {
+        var searchData = "";
+        $("#textProduct").val('');
         $.ajax({
-            url: '/Product/ProductTable'
+            url:'@Url.Action("ListProduct", "Product")',
+            data: {
+                search: searchData
+            }
         })
             .done(function (response) {
                 $("#productTableIndex").html(response);
@@ -80,20 +100,20 @@
 
     $("#AddProduct").click(function () {
         $.ajax({
-            url: '/Product/CreateProduct'
+            url: '@Url.Action("CreateProduct", "Product")'
         })
-            .done(function (response) {
-                focusAction();
-                $("#ProductIndex").html(response);
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
-            })
+        .done(function (response) {
+            focusAction("ProductIndex");
+            $("#ProductIndex").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Fail");
+        })
     });
 
-    function focusAction() {
+    function focusAction(controlToFocus) {
         $("html,body").animate({
-            scrollTop: $("#ProductIndex").offset().top - 100
+            scrollTop: $("#"+controlToFocus).offset().top - 100
         }, 1000);
     }
 
