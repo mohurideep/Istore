@@ -42,7 +42,7 @@ namespace IStore.Services
         }
         public Product FindProduct(int ID)
         {
-            return _storeContext.Products.Find(ID);
+            return _storeContext.Products.Include(x => x.Category).Where(x => x.ID == ID).FirstOrDefault();
         }
         public void DeleteProduct(int ID)
         {

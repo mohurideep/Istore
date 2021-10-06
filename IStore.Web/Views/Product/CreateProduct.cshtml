@@ -1,4 +1,4 @@
-﻿@model List<Category>
+﻿@model NewProductViewModel
 
 @{
     ViewData["Title"] = "CreateProduct";
@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label>Categry</label>
                 <select class="form-control" name="CategoryID">
-                    @foreach (var category in Model)
+                    @foreach (var category in Model.AvailableCategories)
                     {
                         <option value="@category.ID">@category.Name</option>
                     }

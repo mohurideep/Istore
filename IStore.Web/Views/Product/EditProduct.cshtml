@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model EditProductViewModel
 
 @{
     ViewData["Title"] = "EditProduct";
@@ -8,12 +8,25 @@
 <form id="EditProductForm">
     <h1>Edit Products</h1>
     <input type="hidden" name="ID" value="@Model.ID" />
-    @*<div class="form-group">
+    <div class="form-group">
             <label>Categry</label>
             <select class="form-control" name="CategoryID">
-                <option value="@Model.Category.ID">@Model.Category.Name</option>
+                @foreach (var category in Model.AvailableCategories)
+                {
+                    var selected = category.ID == Model.CategoryID ;
+
+                    if(selected)
+                    {
+                        <option value="@category.ID" selected>@category.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@category.ID" >@category.Name</option>
+                    }
+                    
+                }
             </select>
-        </div>*@
+        </div>
     <div class="row">
         <div class="col-md-8">
 
@@ -83,6 +96,7 @@
             .done(function (response) {
                 $("#EditProductForm").html("");
                 $("#productTableIndex").html(response);
+                focusAction("productTableIndex");
 
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
