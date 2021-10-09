@@ -25,19 +25,21 @@ namespace IStore.Web.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ProductTable()
+        public IActionResult ProductTable(int? pageNo)
         {
-            var productList = _productsService.GetProduct();
-            return PartialView(productList);
+            ProductViewModel model = new ProductViewModel();
+            model.Product = _productsService.GetProduct();
+            return PartialView(model);
         }
         public IActionResult ListProduct(string search)
         {
-            var data = _productsService.GetProduct();
+            ProductViewModel model = new ProductViewModel();
+            model.Product = _productsService.GetProduct();
             if (!string.IsNullOrEmpty(search))
             {
-                data = data.Where(x =>x.Name!=null && x.Name.ToLower().Contains(search)).ToList();
+                model.Product = model.Product.Where(x =>x.Name!=null && x.Name.ToLower().Contains(search)).ToList();
             }
-            return PartialView("ProductTable",data);
+            return PartialView("ProductTable", model);
         }
 
         public IActionResult CreateProduct()

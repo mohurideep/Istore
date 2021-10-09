@@ -32,6 +32,8 @@ namespace IStore.Web.Models.ViewModel
 
     public class ProductViewModel
     {
-        public Product Product { get; set; }
+        //public Product Product { get; set; }
+
+        public List<Product> Product { get; set; }
     }
 }
