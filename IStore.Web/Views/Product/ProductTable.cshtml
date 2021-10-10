@@ -1,7 +1,4 @@
 ﻿@model ProductViewModel
-@{
-    ViewData["Title"] = "ProductTable";
-}
 
 <div >
     <h1>ProductTable</h1>
@@ -64,12 +61,31 @@
         </tbody>
     </table>
 
+    <div>
+        @if (Model.pager != null)
+        {
+            if (Model.pager.CurrentPage > 1)
+            {
+                <button class="pageButtons" data-id="@(Model.pager.CurrentPage-1)"> Previous</button>
+                <button class="pageButtons" data-id="1"> First</button>
+            }
+            for (int i = 1; i <= Model.pager.EndPage; i++)
+            {
+                var activeClass = Model.pager.CurrentPage == i ? "active bg-info" : string.Empty;
+
+                <button class="@activeClass pageButtons" data-id="@i"> @i</button>
+            }
+            if (Model.pager.CurrentPage < Model.pager.TotalPages)
+            {
+                <button class="pageButtons" data-id="@(Model.pager.CurrentPage+1)"> Next</button>
+                <button class="pageButtons" data-id="@Model.pager.EndPage"> Last</button>
+            }
+
+        }
+    </div>
 </div>
 
 <script>
-
-    $('#producttableid').DataTable();
-
     $(".Editbtn").click(function () {
         $.ajax({
             url:'@Url.Action("EditProduct", "Product")',
@@ -111,7 +127,7 @@
                         'Your file has been deleted.',
                         'success'
                     )
-                    
+
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Fail");
@@ -131,4 +147,20 @@
 
     });
 
+    $(".pageButtons").click(function () {
+        $.ajax({
+            url:'@Url.Action("ProductTable", "Product")',
+            data:
+            {
+                search: "@Model.SearchItem",
+                pageNo: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#productTableIndex").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            })
+    });
 </script>

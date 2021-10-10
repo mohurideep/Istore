@@ -35,5 +35,9 @@ namespace IStore.Web.Models.ViewModel
         //public Product Product { get; set; }
 
         public List<Product> Product { get; set; }
+
+        public Pager pager { get; set; }
+        public string SearchItem { get; set; }
+
     }
 }

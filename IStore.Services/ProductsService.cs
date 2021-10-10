@@ -18,13 +18,47 @@ namespace IStore.Services
             _storeContext = storeContext;
         }
 
-        public List<Product> GetProduct()
+        public List<Product> GetProduct(string search,int pageNo)
         {
-            return _storeContext.Products.Include(x => x.Category).ToList();
+            int pageSize = 5;
+            if (!String.IsNullOrEmpty(search))
+            {
+                return _storeContext.Products
+                    .Include(x => x.Category)
+                    .Where(x => x.Name != null && x.Name.ToLower()
+                    .Contains(search))
+                    .OrderBy(x => x.ID)
+                    .Skip((pageNo - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+            else
+            {
+                return _storeContext.Products.Include(x => x.Category)
+                    .OrderBy(x => x.ID)
+                    .Skip((pageNo - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
         }
         public List<Product> GetProduct(List<int> productId)
         {
             return _storeContext.Products.Where(x => productId.Contains(x.ID)).ToList();
+        }
+        public int GetProductCount(string search)
+        {
+            if (!String.IsNullOrEmpty(search))
+            {
+                return _storeContext.Products
+                    .Include(x => x.Category)
+                    .Where(x => x.Name != null && x.Name.ToLower()
+                    .Contains(search))
+                    .Count();
+            }
+            else
+            {
+                return _storeContext.Products.Count();
+            }
         }
         public void SaveProduct(Product product)
         {

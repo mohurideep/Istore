@@ -68,7 +68,7 @@
     $("#searchProduct").click(function () {
         var searchData = $("#textProduct").val();
         $.ajax({
-            url:'@Url.Action("ListProduct", "Product")',
+            url:'@Url.Action("ProductTable", "Product")',
             data: {
                 search: searchData
             }
@@ -85,7 +85,7 @@
         var searchData = "";
         $("#textProduct").val('');
         $.ajax({
-            url:'@Url.Action("ListProduct", "Product")',
+            url:'@Url.Action("ProductTable", "Product")',
             data: {
                 search: searchData
             }
