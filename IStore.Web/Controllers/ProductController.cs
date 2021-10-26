@@ -29,9 +29,9 @@ namespace IStore.Web.Controllers
         {
             ProductViewModel model = new ProductViewModel();
             pageNo = pageNo.HasValue ? pageNo.Value : 1;
-            model.Product = _productsService.GetProduct(search, pageNo.Value);
+            model.Products = _productsService.GetProduct(search, pageNo.Value);
             model.SearchItem = search;
-            if(model.Product != null)
+            if(model.Products != null)
             {
                 model.pager = new Pager(_productsService.GetProductCount(search), pageNo, 5);
                 return PartialView(model);
@@ -52,15 +52,22 @@ namespace IStore.Web.Controllers
         [HttpPost]
         public IActionResult CreateProduct(NewProductViewModel model)
         {
-            var newProduct = new Product();
-            newProduct.Name = model.Name;
-            newProduct.Description = model.Description;
-            newProduct.Price = model.Price;
-            newProduct.ImageURL = model.ImageURL;
-            newProduct.Category = _categoriesService.FindCategory(model.CategoryID);
-            newProduct.EntryDate = DateTime.Now;
-            _productsService.SaveProduct(newProduct);
-            return RedirectToAction("ProductTable");
+            if(ModelState.IsValid)
+            {
+                var newProduct = new Product();
+                newProduct.Name = model.Name;
+                newProduct.Description = model.Description;
+                newProduct.Price = model.Price;
+                newProduct.ImageURL = model.ImageURL;
+                newProduct.Category = _categoriesService.FindCategory(model.CategoryID);
+                newProduct.EntryDate = DateTime.Now;
+                _productsService.SaveProduct(newProduct);
+                return RedirectToAction("ProductTable");
+            }
+            else
+            {
+                return new StatusCodeResult(500);
+            }
         }
         
         [HttpGet]
@@ -83,27 +90,44 @@ namespace IStore.Web.Controllers
         [HttpPost]
         public IActionResult UpdateProduct(EditProductViewModel model)
         {
-            var existingProduct = _productsService.FindProduct(model.ID);
-            existingProduct.Name = model.Name;
-            existingProduct.Description = model.Description;
-            existingProduct.Price = model.Price;
-
-            //existingProduct.Category = null; //mark it null. Because the referncy key is changed below
-            //existingProduct.Category.ID = model.CategoryID;
-
-            //dont update imageURL if its empty
-            if (!string.IsNullOrEmpty(model.ImageURL))
+            if(ModelState.IsValid)
             {
-                existingProduct.ImageURL = model.ImageURL;
+                var existingProduct = _productsService.FindProduct(model.ID);
+                existingProduct.Name = model.Name;
+                existingProduct.Description = model.Description;
+                existingProduct.Price = model.Price;
+
+                //existingProduct.Category = null; //mark it null. Because the referncy key is changed below
+                //existingProduct.Category.ID = model.CategoryID;
+
+                //dont update imageURL if its empty
+                if (!string.IsNullOrEmpty(model.ImageURL))
+                {
+                    existingProduct.ImageURL = model.ImageURL;
+                }
+                _productsService.UpdateProduct(existingProduct);
+                return RedirectToAction("ProductTable");
             }
-            _productsService.UpdateProduct(existingProduct);
-            return RedirectToAction("ProductTable");
+            else
+            {
+                return new StatusCodeResult(500);
+            }
         }
 
         public IActionResult DeleteProduct(int id)
         {
             _productsService.DeleteProduct(id);
             return RedirectToAction("ProductTable");
+        }
+
+        [HttpGet]
+        public IActionResult ProductDetails(int id)
+        {
+            ProductViewModel model = new ProductViewModel();
+            model.Product = _productsService.FindProduct(id);
+
+
+            return View(model);
         }
     }
 }

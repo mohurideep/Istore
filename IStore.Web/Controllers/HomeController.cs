@@ -28,7 +28,6 @@ namespace IStore.Web.Controllers
         {
             HomeViewModel homeViewModel = new HomeViewModel();
             homeViewModel.FeaturedCategories = _categoryService.GetFeaturedCategory();
-            homeViewModel.NewProducts = _productService.GetNewProducts();
             return View(homeViewModel);
         }
 

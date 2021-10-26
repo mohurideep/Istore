@@ -31,15 +31,15 @@
         <div class="col-md-8">
 
             <div class="form-group">
-                <label>Name</label>
+                <label>Name<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="Name" value="@Model.Name" />
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label>Description<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="Description" value="@Model.Description" />
             </div>
             <div class="form-group">
-                <label>Price</label>
+                <label>Price<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="Price" value="@Model.Price" />
             </div>
             <div class="form-group">
@@ -87,21 +87,68 @@
             });
     });
 
+    $("#EditProductForm").validate({
+        rules: {
+            Name: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            },
+            Description: {
+                required: true,
+                maxlength: 500
+            },
+            Price: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            Name: {
+                required: "Name is Required",
+                minlength: "MinLength is 5",
+                maxlength: "MaxLength is 50"
+            },
+            Description: {
+                required: "Description is Required",
+                maxlength: "MaxLength is 500"
+            },
+            Price: {
+                required: "Price is Required",
+                number: "Please Enter Valid Number"
+            }
+        }
+    });
+
     $("#UpdateProductBtn").click(function () {
-        $.ajax({
+        if ($("#EditProductForm").valid()) {
+            $.ajax({
             type: 'POST',
             url:'@Url.Action("UpdateProduct", "Product")',
             data: $("#EditProductForm").serialize()
-        })
+            })
             .done(function (response) {
-                $("#EditProductForm").html("");
-                $("#productTableIndex").html(response);
-                focusAction("productTableIndex");
+            Swal.fire('Good job!', 'Prduct Added Succesfully!', 'success')
+            $("#EditProductForm").html("");
+            $("#productTableIndex").html(response);
+            focusAction("productTableIndex");
 
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...Internal server',
+                    text: 'Please Try After SomeTime!'
+                })
             })
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Enter All the Required Feilds!'
+            })
+        }
     });
 
     $("#CancelProductBtn").click(function () {

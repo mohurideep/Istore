@@ -11,10 +11,22 @@ namespace IStore.Web.Controllers
     public class ShopController : Controller
     {
         private readonly ProductsService _productsService;
+        private readonly CategoriesService _categoriesService;
 
-        public ShopController(ProductsService productsService)
+        public ShopController(ProductsService productsService, CategoriesService categoriesService)
         {
             _productsService = productsService;
+            _categoriesService = categoriesService;
+        }
+        
+        public IActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? categoryId)
+        {
+            ShopViewModel model = new ShopViewModel();
+            model.FeaturedCategories = _categoriesService.GetFeaturedCategory();
+            model.MaxPrice = _productsService.GetMaxPrice();
+            model.Products = _productsService.SearchProducts(searchTerm, minPrice, maxPrice, categoryId);
+            
+            return View(model);
         }
         public IActionResult CheckOut()
         {

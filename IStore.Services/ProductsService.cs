@@ -12,12 +12,11 @@ namespace IStore.Services
     public class ProductsService
     {
         private readonly IStoreContext _storeContext;
-
         public ProductsService(IStoreContext storeContext)
         {
             _storeContext = storeContext;
         }
-
+       
         public List<Product> GetProduct(string search,int pageNo)
         {
             int pageSize = 5;
@@ -45,6 +44,58 @@ namespace IStore.Services
         {
             return _storeContext.Products.Where(x => productId.Contains(x.ID)).ToList();
         }
+        public List<Product> GetProduct(int pageNo, int pageSize)
+        {
+            return _storeContext.Products.
+                    OrderByDescending(x => x.EntryDate)
+                   .Include(x=> x.Category)
+                   .Skip((pageNo - 1) * pageSize)
+                   .Take(pageSize)
+                   .ToList();
+        }
+        public List<Product> GetProductByCategory(int CategoryId, int pageSize)
+        {
+            return _storeContext.Products.
+                   Where(x => x.Category.ID == CategoryId)
+                   .OrderByDescending(x => x.EntryDate)
+                   .Include(x => x.Category)
+                   .Take(pageSize)
+                   .ToList();
+        }
+        public List<Product> GetLatestProduct(int numberOfProduct)
+        {
+            return _storeContext.Products.
+                    OrderByDescending(x => x.EntryDate)
+                   .Include(x => x.Category)
+                   .Take(numberOfProduct)
+                   .ToList();
+        }
+        public List<Product> SearchProducts(string searchTerm, int? minPrice, int? maxPrice, int? categoryId)
+        {
+            var products = _storeContext.Products.ToList();
+            if(categoryId.HasValue)
+            {
+                products = products.Where(x => x.Category.ID == categoryId.Value).ToList();
+            }
+            if(!string.IsNullOrEmpty(searchTerm))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+            }
+            if(minPrice.HasValue)
+            {
+                products = products.Where(x => x.Price >= minPrice.Value).ToList();
+            }
+            if (maxPrice.HasValue)
+            {
+                products = products.Where(x => x.Price <= maxPrice.Value).ToList();
+            }
+            return products;
+        }
+        public int GetMaxPrice()
+        {
+            return (int)(_storeContext.Products.Max(x => x.Price));
+        }
+
         public int GetProductCount(string search)
         {
             if (!String.IsNullOrEmpty(search))
@@ -84,10 +135,6 @@ namespace IStore.Services
             _storeContext.Products.Remove(data);
             _storeContext.SaveChanges();
         }
-
-        public List<Product> GetNewProducts()
-        {
-            return _storeContext.Products.OrderByDescending(x => x.EntryDate).ToList();
-        }
+        
     }
 }
